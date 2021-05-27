@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2021_05_27_152118) do
     t.string "title"
     t.string "author"
     t.integer "page_count"
+    t.string "img"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

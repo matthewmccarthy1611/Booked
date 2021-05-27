@@ -32,10 +32,10 @@ body {
     box-shadow: 3px 4px #e04b52
   }
   
-  .toy-avatar {
+  .book-image {
     justify-self: center;
     height: 12rem;
-    width: auto;
+    width: 12rem;
   }
   
   button {
