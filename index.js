@@ -70,12 +70,19 @@ async function googleBooksSearch(search) {
 }
 
 function renderGoogleResults(results){
-    console.log(results.items)
-    // let googleResults = getElementById('google-results')
-    // let bookPreview = document.createElement('div')
     
-    // bookPreview.setAttribute('class', 'card')
-    // volumeInfo[imageLinks][thumbnail]
+    let books = results.items
+    for (let i = 0; i < books.length; i++){
+        console.log(books[i].volumeInfo.title)
+        console.log(books[i].volumeInfo.imageLinks.thumbnail)
+    }
+
+    // return images
+    let googleResults = document.querySelector('google-results')
+    let bookPreview = document.createElement('div')
+    bookPreview.setAttribute('class', 'card')
+    let h2 = 
+    googleResults.append(bookPreview)
 }
 
 const searchForm = document.querySelector('.search-box')
