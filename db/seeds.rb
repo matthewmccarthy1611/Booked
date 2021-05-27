@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Book.create(title: "", author: "", page_count: "", img: "")
 Book.create(title: "Basic Economics", author: "Thomas Sowell", page_count: 600, img: "")
 Book.create(title: "Alexander Hamilton", author: "Ron Chernow", page_count: 570, img: "")
 Book.create(title: "The New Right", author: "Michael Malice", page_count: 280, img: "")
@@ -17,3 +18,13 @@ Book.create(title: "12 Rules for Life", author: "Jordan Peterson", page_count: 4
 Book.create(title: "Theory and History", author: "Ludwig von Mises", page_count: 450, img: "")
 Book.create(title: "Modern Times", author: "Paul Johnson", page_count: 450, img: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1387735243i/55304._UY630_SR1200,630_.jpg")
 Book.create(title: "Man, Economy, and State", author: "Murray N. Rothbard", page_count: 450, img: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b2/ManEconomyAndStateVol1.jpg/220px-ManEconomyAndStateVol1.jpg")
+
+User.create(name: "Bill")
+User.create(name: "Fred")
+User.create(name: "Linda")
+User.create(name: "Sally")
+
+Bookshelf.create(name: "Have Read", book: Book.find_by(title: ""), user: User.find_by(name: "Sally"))
+Bookshelf.create(name: "Have Read", book: Book.find_by(title: ""), user: User.find_by(name: "Bill"))
+Bookshelf.create(name: "Have Read", book: Book.find_by(title: ""), user: User.find_by(name: "Linda"))
+Bookshelf.create(name: "Have Read", book: Book.find_by(title: ""), user: User.find_by(name: "Fred"))
