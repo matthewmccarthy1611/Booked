@@ -45,34 +45,33 @@ function renderBooks(book) {
     p.innerText = book['author']
 
     let img = document.createElement('img')
-
     if(book['img'] != ""){
         img.setAttribute('src', book['img'])
         img.setAttribute('class', 'book-image')
     }
 
+    let btn = document.createElement('button')
+    btn.innerText = "Add to Bookshelf"
+    btn.addEventListener('click', e => {
+        console.log(e.target.value)
+    })
+
     let divCard = document.createElement('div')
     divCard.setAttribute('class', 'card')
 
-    divCard.append(h2, p, img)
+    divCard.append(h2, p, img, btn)
     booksContainer.append(divCard)
 }
 
-function googleBooksSearch(titleSearch) {
+async function googleBooksSearch(search) {
     return fetch(`https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyBVOEuQ0f8FopsXl0HthBSJ1GIBIbI0C2Y`)
         .then(response => response.json())
         .then(books => renderBooks(books))
 }
 
-const titleSearch = document.querySelector('.search-box')
-let filteredTitles = []
+const search = document.querySelector('.search-box')
 
-titleSearch.addEventListener('input', e => {
+search.addEventListener('input', e => {
     e.preventDefault()
-    const input = e.target.value.toLowerCase()
-    let searchResult = filteredTitles.filter( filteredTitle => {
-        return filteredTitle.name.toLowerCase().includes(input)
-    })
-
-    renderBooks(searchResult)
+    googleBooksSearch(search.value);
 })
