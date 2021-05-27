@@ -76,7 +76,7 @@ function renderGoogleResults(results){
         let bookTitle = books[i].volumeInfo.title
         let bookImg = books[i].volumeInfo.imageLinks.thumbnail
         let bookPreview = document.createElement('div')
-        bookPreview.setAttribute('class', 'card')
+        bookPreview.setAttribute('class', 'google-card')
 
         let h3 = document.createElement('h3')
         h3.innerText = bookTitle
