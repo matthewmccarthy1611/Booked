@@ -70,19 +70,29 @@ async function googleBooksSearch(search) {
 }
 
 function renderGoogleResults(results){
-    
+    const googleResults = document.querySelector('.google-results')
     let books = results.items
     for (let i = 0; i < books.length; i++){
-        console.log(books[i].volumeInfo.title)
-        console.log(books[i].volumeInfo.imageLinks.thumbnail)
-    }
+        let bookTitle = books[i].volumeInfo.title
+        let bookImg = books[i].volumeInfo.imageLinks.thumbnail
+        let bookPreview = document.createElement('div')
+        bookPreview.setAttribute('class', 'card')
 
-    // return images
-    let googleResults = document.querySelector('google-results')
-    let bookPreview = document.createElement('div')
-    bookPreview.setAttribute('class', 'card')
-    let h2 = 
-    googleResults.append(bookPreview)
+        let h3 = document.createElement('h3')
+        h3.innerText = bookTitle
+        let img = document.createElement('img')
+        img.setAttribute('src', bookImg)
+        img.setAttribute('class', 'book-image')
+
+        let btn = document.createElement('button')
+        btn.innerText = "Add to Bookshelf"
+        btn.addEventListener('click', e => {
+            console.log(e.target.value)
+        })
+
+        bookPreview.append(h3, img, btn)
+        googleResults.append(bookPreview)
+    }
 }
 
 const searchForm = document.querySelector('.search-box')
