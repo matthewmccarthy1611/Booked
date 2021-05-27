@@ -66,12 +66,23 @@ function renderBooks(book) {
 async function googleBooksSearch(search) {
     return fetch(`https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyBVOEuQ0f8FopsXl0HthBSJ1GIBIbI0C2Y`)
         .then(response => response.json())
-        .then(books => renderBooks(books))
+        .then(results => renderGoogleResults(results))
 }
 
-const search = document.querySelector('.search-box')
+function renderGoogleResults(results){
+    console.log(results.items)
+    // let googleResults = getElementById('google-results')
+    // let bookPreview = document.createElement('div')
+    
+    // bookPreview.setAttribute('class', 'card')
+    // volumeInfo[imageLinks][thumbnail]
+}
 
-search.addEventListener('input', e => {
-    e.preventDefault()
-    googleBooksSearch(search.value);
+const searchForm = document.querySelector('.search-box')
+
+searchForm.addEventListener('input', e => {
+    let search = e.target.value
+    console.log(search)
+    e.preventDefault();
+    googleBooksSearch(search);
 })
