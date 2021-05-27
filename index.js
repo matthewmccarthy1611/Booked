@@ -1,16 +1,3 @@
-let addBook = false;
-let addBookForm = document.querySelector('#add-book-form')
-let search = document.getElementById('search')
-let searchBar = document.createElement('input')
-searchBar.type = "text"
-let searchBtn = document.createElement('button')
-searchBtn.type = "submit"
-searchBtn.name = "Search"
-searchBtn.value = "Search"
-searchBtn.class = "submit"
-search.append(searchBar, searchBtn)
-
-
 document.addEventListener("DOMContentLoaded", () => {
     getBooks();
 })
@@ -25,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function getBooks(){
     return fetch('http://localhost:3000/books')
         .then(resp => resp.json())
-        .then(books => books.forEach(book => renderBooks(book)))
+        .then(books => books.slice(1).forEach(book => renderBooks(book)))
 }
 
 // function postBook(new_book){
@@ -71,9 +58,21 @@ function renderBooks(book) {
     booksContainer.append(divCard)
 }
 
-function googleBooksSearch() {
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=search-terms&key=AIzaSyBVOEuQ0f8FopsXl0HthBSJ1GIBIbI0C2Y`)
+function googleBooksSearch(titleSearch) {
+    return fetch(`https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyBVOEuQ0f8FopsXl0HthBSJ1GIBIbI0C2Y`)
         .then(response => response.json())
-        .then(result => {
-        this.setState({ books: result.items})
-})}
+        .then(books => renderBooks(books))
+}
+
+const titleSearch = document.querySelector('.search-box')
+let filteredTitles = []
+
+titleSearch.addEventListener('input', e => {
+    e.preventDefault()
+    const input = e.target.value.toLowerCase()
+    let searchResult = filteredTitles.filter( filteredTitle => {
+        return filteredTitle.name.toLowerCase().includes(input)
+    })
+
+    renderBooks(searchResult)
+})
