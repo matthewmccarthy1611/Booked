@@ -51,7 +51,7 @@ function renderBooks(book) {
     }
 
     let btn = document.createElement('button')
-    btn.innerText = "Add to Bookshelf"
+    btn.innerText = "Delete from Library"
     btn.addEventListener('click', e => {
         console.log(e.target.value)
     })
@@ -84,7 +84,7 @@ function renderGoogleResults(results){
         img.setAttribute('src', bookImg)
         img.setAttribute('class', 'book-image')
 
-        let btn = document.createElement('button')
+        let btn = document.createElement('addbutton')
         btn.innerText = "Add to Bookshelf"
         btn.addEventListener('click', e => {
             console.log(e.target.value)
@@ -108,5 +108,5 @@ const clearSearches = document.querySelector('.clear-search')
 
 clearSearches.addEventListener('click', () => {
     console.log("works")
-    renderGoogleResults.clear()
+    // renderGoogleResults.clear()
 })
