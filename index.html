@@ -7,22 +7,25 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div class="search-box">
+    <div id='header' class="search-box" style='text-align:center'>
         <form>
+            <h1>Search for Books to Add to Your Bookshelf</h1>
             <input type="text" class="search-title" name="title" placeholder="Search Books by Title">
             <button class="search-btn" type="submit">Search</button>
             
         </form>
     </div>
-    <button class="clear-search" type="submit">Clear Searches</button>
+    <!-- <button class="clear-search" type="submit">Clear Searches</button> -->
 
     <div class="google-results">
       
     </div>
 
-    <h1 style="text-align:center">My Bookshelf</h1>
-    
-    <p style='text-align:center' ><button id='new-book-btn'>Add a new book</button></p>
+    <div id='header' style="text-align:center">
+        <h1 >My Bookshelf</h1>
+        
+        <p><button id='new-book-btn'>Add a new book</button></p>
+    </div>
     <!-- <div class="container">
         <form class="new-book-form" style="">
           <h3>Add A New Book</h3>
