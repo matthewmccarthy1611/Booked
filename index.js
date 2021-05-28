@@ -70,10 +70,14 @@ async function googleBooksSearch(search) {
     return fetch(`https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyBVOEuQ0f8FopsXl0HthBSJ1GIBIbI0C2Y`)
         .then(response => response.json())
         .then(results => renderGoogleResults(results))
+        // .catch(err => {console.error(err)}) // add time interval delay to show errors
 }
 
 function renderGoogleResults(results){
     const googleResults = document.querySelector('.google-results')
+    if (googleResults.hasChildNodes()) {
+        googleResults.innerHTML = ''
+    }
     let books = results.items
     for (let i = 0; i < books.length; i++){
         let bookTitle = books[i].volumeInfo.title
@@ -107,14 +111,11 @@ searchForm.addEventListener('submit', e => {
     googleBooksSearch(search);
 })
 
-const clearSearches = document.querySelector('.clear-search')
+// function deleteBookFromBookshelf(){
+//     fetch(`https://localhost/users/${user_id}/books/${book_id}`)
+//         method: DELETE
+// }
 
-clearSearches.addEventListener('click', () => {
-    console.log("works")
-    // renderGoogleResults.clear()
-})
-
-function deleteBookFromBookshelf(){
-    fetch(`https://localhost/users/${user_id}/books/${book_id}`)
-        method: DELETE
+function addToBookShelf(){
+    // add book from Google search to book shelf below with an interval alert that the book was added. Book is also removed from the google search
 }
