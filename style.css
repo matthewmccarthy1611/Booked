@@ -3,7 +3,7 @@ body {
     font-family: monospace;
   }
   
-  #toy-header {
+  #header {
     display: flex;
     justify-content: center;
     background: #515DA2;
@@ -12,12 +12,12 @@ body {
     padding: 1rem;
   }
   
-  #toy-header img {
+  #header img {
     height: 6rem;
     width: auto;
   }
   
-  #toy-collection {
+  #collection {
     margin: 2rem;
   }
   

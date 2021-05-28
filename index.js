@@ -15,25 +15,28 @@ function getBooks(){
         .then(books => books.slice(1).forEach(book => renderBooks(book)))
 }
 
-// function postBook(new_book){
-//     fetch('http://localhost:3000/books', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Accept': "application/json"
-//         },
-//         body: JSON.stringify({
-//             "title": new_book.title.value,
-//             "author": new_book.author.value,
-//             "page_count": new_book.author.value,
-//             "img": new_book.img.value
-//         })
-//         })
-//     .then(res => res.json())
-//     .then((book) => {
-//     renderBooks(book)
-//     })
-// }
+const newBook = document.getElementById('new-book-btn').addEventListener('click', postBook)
+const newBookForm = document.querySelector('#new-book-form')
+
+function postBook(new_book){
+    fetch('http://localhost:3000/books', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': "application/json"
+        },
+        body: JSON.stringify({
+            "title": new_book.title.value,
+            "author": new_book.author.value,
+            "page_count": new_book.author.value,
+            "img": new_book.img.value
+        })
+        })
+    .then(res => res.json())
+    .then((book) => {
+    renderBooks(book)
+    })
+}
 
 function renderBooks(book) {
     console.log(book)
@@ -110,3 +113,8 @@ clearSearches.addEventListener('click', () => {
     console.log("works")
     // renderGoogleResults.clear()
 })
+
+function deleteBookFromBookshelf(){
+    fetch(`https://localhost/users/${user_id}/books/${book_id}`)
+        method: DELETE
+}

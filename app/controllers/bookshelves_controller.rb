@@ -10,7 +10,7 @@ class BookshelvesController < ApplicationController
 
   # GET /bookshelves/1
   def show
-    render json: bookshelf
+    render json: @bookshelf
   end
 
   # POST /bookshelves
