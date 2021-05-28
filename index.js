@@ -56,10 +56,17 @@ function renderBooks(book) {
         deleteBookFromBookshelf(book.id)
     })
 
+    let commentbtn = document.createElement('btn')
+    commentbtn.innerText = "View Comments"
+    commentbtn.addEventListener('click', (e) => {
+        e.preventDefault()
+
+    })
+
     let divCard = document.createElement('div')
     divCard.setAttribute('class', 'card')
 
-    divCard.append(h2, p, img, btn)
+    divCard.append(h2, p, img, btn, commentbtn)
     booksContainer.append(divCard)
 }
 
