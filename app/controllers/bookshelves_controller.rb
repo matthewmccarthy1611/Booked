@@ -5,7 +5,7 @@ class BookshelvesController < ApplicationController
   def index
     bookshelves = Bookshelf.all
 
-    render json: bookshelves
+    render json: BookshelfSerializer.new(bookshelves)
   end
 
   # GET /bookshelves/1

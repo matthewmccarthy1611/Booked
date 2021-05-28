@@ -1,4 +1,4 @@
 class BookshelfSerializer
   include FastJsonapi::ObjectSerializer
-  attributes 
+  attributes :name, :book_id, :user_id
 end
