@@ -1,3 +1,5 @@
+let viewComments = false
+
 document.addEventListener("DOMContentLoaded", () => {
     getBooks();
 })
@@ -56,17 +58,26 @@ function renderBooks(book) {
         deleteBookFromBookshelf(book.id)
     })
 
-    let commentbtn = document.createElement('btn')
+    let commentbtn = document.createElement('button')
     commentbtn.innerText = "View Comments"
-    commentbtn.addEventListener('click', (e) => {
-        e.preventDefault()
-
+    commentbtn.addEventListener('click', () => {
+        console.log("works")
+        viewComments = !viewComments
+        if (viewComments){
+            commentArea.style.display = 'block'
+        } else {
+            commentArea.style.display ='none'
+        }
     })
+
+    let commentArea = document.createElement('div')
+    commentArea.style.display = 'none'
+    //addcomments function
 
     let divCard = document.createElement('div')
     divCard.setAttribute('class', 'card')
 
-    divCard.append(h2, p, img, btn, commentbtn)
+    divCard.append(h2, p, img, btn, commentbtn, commentArea)
     booksContainer.append(divCard)
 }
 
