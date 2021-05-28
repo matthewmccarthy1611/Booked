@@ -81,6 +81,18 @@ function renderBooks(book) {
     booksContainer.append(divCard)
 }
 
+class User {
+
+}
+
+class Book {
+    
+}
+
+class Comments {
+    constructor(content, )
+}
+
 async function googleBooksSearch(search) {
     return fetch(`https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyBVOEuQ0f8FopsXl0HthBSJ1GIBIbI0C2Y`)
         .then(response => response.json())
