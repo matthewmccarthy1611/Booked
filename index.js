@@ -2,13 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     getBooks();
 })
 
-// document.getElementById('new-book-btn').addEventListener("click", () => {
-//     addBook = !addBook
-//     if (addBook){
-//         addBookForm.style.display = 'block'
-//     }
-// })
-
 function getBooks(){
     return fetch('http://localhost:3000/books')
         .then(resp => resp.json())
@@ -18,37 +11,39 @@ function getBooks(){
 // const newBook = document.getElementById('new-book-btn').addEventListener('click', postBook)
 // const newBookForm = document.querySelector('#new-book-form')
 
-// function postBook(new_book){
-//     fetch('http://localhost:3000/books', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Accept': "application/json"
-//         },
-//         body: JSON.stringify({
-//             "title": new_book.title.value,
-//             "author": new_book.author.value,
-//             "page_count": new_book.author.value,
-//             "img": new_book.img.value
-//         })
-//         })
-//     .then(res => res.json())
-//     .then((book) => {
-//     renderBooks(book)
-//     })
-// }
+async function postBook(new_book, image){
+    console.log(new_book.volumeInfo.authors)
+    console.log(new_book.volumeInfo.imageLinks.thumbnail.toString())
+    return fetch('http://localhost:3000/books', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': "application/json"
+        },
+        body: JSON.stringify({
+            title: new_book.volumeInfo.title,
+            author: new_book.volumeInfo.authors.join(),
+            page_count: new_book.volumeInfo.pageCount,
+            img: image
+        })
+        })
+    .then(res => res.json())
+    .then((book) => {
+    renderBooks(book)
+    })
+}
 
 function renderBooks(book) {
     console.log(book)
     const booksContainer = document.getElementById('books-container')
     let h2 = document.createElement('h2')
-    h2.innerText = book['title']
+    h2.innerText = book.title
 
     let p = document.createElement('p')
-    p.innerText = book['author']
+    p.innerText = book.author
 
     let img = document.createElement('img')
-    if(book['img'] != ""){
+    if(book.img != ""){
         img.setAttribute('src', book['img'])
         img.setAttribute('class', 'book-image')
     }
@@ -88,7 +83,7 @@ function renderGoogleResults(results){
         bookPreview.setAttribute('class', 'card')
 
         let h2 = document.createElement('h2')
-        h2.innerText = bookTitle.substr(0,38)
+        h2.innerText = bookTitle.substr(0,30)
         let img = document.createElement('img')
         img.setAttribute('src', bookImg)
         img.setAttribute('class', 'book-image')
@@ -98,6 +93,7 @@ function renderGoogleResults(results){
         btn.addEventListener('click', e => {
             e.preventDefault()
             console.log(books[i])
+            postBook(books[i], bookImg)
         })
 
         bookPreview.append(h2, img, btn)
