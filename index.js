@@ -61,11 +61,13 @@ function renderBooks(book) {
     let commentbtn = document.createElement('button')
     commentbtn.innerText = "View Comments"
     commentbtn.addEventListener('click', () => {
-        console.log("works")
         viewComments = !viewComments
         if (viewComments){
+            getComments(book, id)
+            commentbtn.innerText = 'Hide Comments'
             commentArea.style.display = 'block'
         } else {
+            commentbtn.innerText = "View Comments"
             commentArea.style.display ='none'
         }
     })
@@ -86,11 +88,32 @@ class User {
 }
 
 class Book {
-    
+
 }
 
 class Comments {
-    constructor(content, )
+    constructor(content, ){
+
+    }
+}
+
+async function getComments(book, id){
+    console.log(book, id)
+    return fetch(`http://localhost:3000/books/${id}/comments`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': "application/json"
+        },
+        body: JSON.stringify({
+            content: content,
+
+        })
+        })
+    .then(res => console.log(res.json()))
+    // .then((json) => {
+    //     Comments.new(json)
+    // })
 }
 
 async function googleBooksSearch(search) {
@@ -150,10 +173,10 @@ async function deleteBookFromBookshelf(id){
     })
 }
 
-function addToBookShelf(){
-    // add book from Google search to book shelf below with an interval alert that the book was added. Book is also removed from the google search
-}
+// function addToBookShelf(){
+//     // add book from Google search to book shelf below with an interval alert that the book was added. Book is also removed from the google search
+// }
 
-function loadMore(){
-    //load 10 more entries of books
-}
+// function loadMore(){
+//     //load 10 more entries of books
+// }
