@@ -78,8 +78,8 @@ function renderGoogleResults(results){
         let bookPreview = document.createElement('div')
         bookPreview.setAttribute('class', 'google-card')
 
-        let h3 = document.createElement('h3')
-        h3.innerText = bookTitle
+        let h2 = document.createElement('h2')
+        h2.innerText = bookTitle
         let img = document.createElement('img')
         img.setAttribute('src', bookImg)
         img.setAttribute('class', 'book-image')
@@ -90,16 +90,23 @@ function renderGoogleResults(results){
             console.log(e.target.value)
         })
 
-        bookPreview.append(h3, img, btn)
+        bookPreview.append(h2, img, btn)
         googleResults.append(bookPreview)
     }
 }
 
 const searchForm = document.querySelector('.search-box')
 
-searchForm.addEventListener('input', e => {
-    let search = e.target.value
-    console.log(search)
+searchForm.addEventListener('submit', e => {
     e.preventDefault();
+    let search = document.querySelector('.search-title').value
+    console.log(search)
     googleBooksSearch(search);
+})
+
+const clearSearches = document.querySelector('.clear-search')
+
+clearSearches.addEventListener('click', () => {
+    console.log("works")
+    renderGoogleResults.clear()
 })
