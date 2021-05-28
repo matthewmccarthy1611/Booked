@@ -15,28 +15,28 @@ function getBooks(){
         .then(books => books.slice(1).forEach(book => renderBooks(book)))
 }
 
-const newBook = document.getElementById('new-book-btn').addEventListener('click', postBook)
-const newBookForm = document.querySelector('#new-book-form')
+// const newBook = document.getElementById('new-book-btn').addEventListener('click', postBook)
+// const newBookForm = document.querySelector('#new-book-form')
 
-function postBook(new_book){
-    fetch('http://localhost:3000/books', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': "application/json"
-        },
-        body: JSON.stringify({
-            "title": new_book.title.value,
-            "author": new_book.author.value,
-            "page_count": new_book.author.value,
-            "img": new_book.img.value
-        })
-        })
-    .then(res => res.json())
-    .then((book) => {
-    renderBooks(book)
-    })
-}
+// function postBook(new_book){
+//     fetch('http://localhost:3000/books', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Accept': "application/json"
+//         },
+//         body: JSON.stringify({
+//             "title": new_book.title.value,
+//             "author": new_book.author.value,
+//             "page_count": new_book.author.value,
+//             "img": new_book.img.value
+//         })
+//         })
+//     .then(res => res.json())
+//     .then((book) => {
+//     renderBooks(book)
+//     })
+// }
 
 function renderBooks(book) {
     console.log(book)
@@ -55,8 +55,10 @@ function renderBooks(book) {
 
     let btn = document.createElement('button')
     btn.innerText = "Delete from Library"
-    btn.addEventListener('click', e => {
-        console.log(e.target.value)
+    btn.addEventListener('click', (e) => {
+        e.preventDefault()
+        divCard.remove()
+        deleteBookFromBookshelf(book.id)
     })
 
     let divCard = document.createElement('div')
@@ -86,7 +88,7 @@ function renderGoogleResults(results){
         bookPreview.setAttribute('class', 'card')
 
         let h2 = document.createElement('h2')
-        h2.innerText = bookTitle
+        h2.innerText = bookTitle.substr(0,38)
         let img = document.createElement('img')
         img.setAttribute('src', bookImg)
         img.setAttribute('class', 'book-image')
@@ -94,7 +96,8 @@ function renderGoogleResults(results){
         let btn = document.createElement('button')
         btn.innerText = "Add to Bookshelf"
         btn.addEventListener('click', e => {
-            console.log(e.target.value)
+            e.preventDefault()
+            console.log(books[i])
         })
 
         bookPreview.append(h2, img, btn)
@@ -111,11 +114,20 @@ searchForm.addEventListener('submit', e => {
     googleBooksSearch(search);
 })
 
-// function deleteBookFromBookshelf(){
-//     fetch(`https://localhost/users/${user_id}/books/${book_id}`)
-//         method: DELETE
-// }
+async function deleteBookFromBookshelf(id){
+    return fetch(`http://localhost:3000/books/${id}`, {
+        method: `DELETE`,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: null
+    })
+}
 
 function addToBookShelf(){
     // add book from Google search to book shelf below with an interval alert that the book was added. Book is also removed from the google search
+}
+
+function loadMore(){
+    //load 10 more entries of books
 }
