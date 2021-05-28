@@ -76,7 +76,7 @@ function renderGoogleResults(results){
         let bookTitle = books[i].volumeInfo.title
         let bookImg = books[i].volumeInfo.imageLinks.thumbnail
         let bookPreview = document.createElement('div')
-        bookPreview.setAttribute('class', 'google-card')
+        bookPreview.setAttribute('class', 'card')
 
         let h2 = document.createElement('h2')
         h2.innerText = bookTitle
@@ -84,7 +84,7 @@ function renderGoogleResults(results){
         img.setAttribute('src', bookImg)
         img.setAttribute('class', 'book-image')
 
-        let btn = document.createElement('addbutton')
+        let btn = document.createElement('button')
         btn.innerText = "Add to Bookshelf"
         btn.addEventListener('click', e => {
             console.log(e.target.value)

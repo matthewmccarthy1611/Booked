@@ -3,14 +3,14 @@ class BookshelvesController < ApplicationController
 
   # GET /bookshelves
   def index
-    @bookshelves = Bookshelf.all
+    bookshelves = Bookshelf.all
 
-    render json: @bookshelves
+    render json: bookshelves
   end
 
   # GET /bookshelves/1
   def show
-    render json: @bookshelf
+    render json: bookshelf
   end
 
   # POST /bookshelves
