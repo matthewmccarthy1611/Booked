@@ -36,7 +36,6 @@ async function postBook(new_book, image){
 }
 
 function renderBooks(book) {
-    console.log(book)
     const booksContainer = document.getElementById('books-container')
     let h2 = document.createElement('h2')
     h2.innerText = book.title
@@ -58,69 +57,13 @@ function renderBooks(book) {
         deleteBookFromBookshelf(book.id)
     })
 
-    let commentbtn = document.createElement('button')
-    commentbtn.innerText = "View Comments"
-    commentbtn.addEventListener('click', () => {
-        viewComments = !viewComments
-        if (viewComments){
-            getComments(book)
-            commentbtn.innerText = 'Hide Comments'
-            commentArea.style.height = 'block'
-        } else {
-            commentbtn.innerText = "View Comments"
-            commentArea.style.display ='none'
-        }
-    })
-
-    let commentArea = document.createElement('div')
-    commentArea.style.display = 'none'
-    commentArea.setAttribute('id', 'comments-area')
-    //addcomments function
-
     let divCard = document.createElement('div')
     divCard.setAttribute('class', 'card')
 
-    divCard.append(h2, p, img, btn, commentbtn, commentArea)
+    divCard.append(h2, p, img, btn)
     booksContainer.append(divCard)
 }
 
-// class User {
-//     constructor(user_id){
-//         this.user_id = user_id;
-//     }
-// }
-
-function findUserName(user_id){
-    // console.log(user_id)
-    fetch(`http://localhost:3000/users/${user_id}`)
-    .then(res => res.json())
-    .then(json => {
-        preRender(json)
-    })
-
-}
-
-
-class Comments {
-    constructor(content){
-        this.content = content;
-    }  
-}
-
-// let preRender = function(username){
-//     return username
-// }
-
-let renderComments = function(comment){
-    // console.log(`${user} says: ${comment}`)
-    let commentsArea = document.getElementById('comments-area')
-    // let ul = document.createElement('ul')
-    let li = document.createElement('li')
-    li.textContent = `Anon says: ${comment}`
-    commentsArea.append(li)
-    // commentsArea.append(ul)
-    // li.textContent = `Anon says: ${comment}`
-}
 
 async function getComments(book){
     return fetch(`http://localhost:3000/books/${book.id}/comments`, {
@@ -178,11 +121,10 @@ function renderGoogleResults(results){
 }
 
 const searchForm = document.querySelector('.search-box')
-
 searchForm.addEventListener('submit', e => {
     e.preventDefault();
     let search = document.querySelector('.search-title').value
-    console.log(search)
+    // console.log(search)
     googleBooksSearch(search);
 })
 
@@ -195,11 +137,3 @@ async function deleteBookFromBookshelf(id){
         body: null
     })
 }
-
-// function addToBookShelf(){
-//     // add book from Google search to book shelf below with an interval alert that the book was added. Book is also removed from the google search
-// }
-
-// function loadMore(){
-//     //load 10 more entries of books
-// }
