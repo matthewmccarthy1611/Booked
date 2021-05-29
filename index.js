@@ -62,12 +62,13 @@ function renderBooks(book) {
     cbtn.addEventListener('click', (e) => {
         e.preventDefault()
         console.log(book)
-        fetchComments(book)
+        fetchComments(book.id)
         // console.log(comments)
     })
 
     let divCard = document.createElement('div')
     divCard.setAttribute('class', 'card')
+    divCard.setAttribute('id', book.id)
 
     divCard.append(h2, p, img, btn, cbtn)
     booksContainer.append(divCard)
@@ -130,16 +131,17 @@ async function deleteBookFromBookshelf(id){
 }
 
 function fetchComments(book) {
-    let comments = []
-    fetch(`http://localhost:3000/books/${book.id}/comments`)
+    let comments
+    fetch(`http://localhost:3000/books/${book}/comments`)
         .then(response => response.json())
         .then(results => results.forEach(obj => {
-            if (obj.book_id === book.id){
+            if (obj.book_id === book){
                 // console.log(obj)
-                comments.push(new Comment(obj.content, obj.book_id, obj.user_id))
+                comments = new Comment(obj.content, obj.book_id, obj.user_id)
             }
         }))
-        renderComments(comments)
+        console.log(comments)
+        renderComments(book, comments)
 }
 
 class Comment {
@@ -150,6 +152,16 @@ class Comment {
     }
 }
 
-function renderComments(comments) {
-    console.log(comments)
-}
+// function renderComments(book, comments) {
+//     console.log(comments)
+//     console.log(book)
+//     let bookCard = document.getElementById(book)
+//     let commentArea = document.createElement('div')
+//     bookCard.append(commentArea)
+//     let ul = document.createElement('ul')
+//     commentArea.append(ul)
+//     console.log(comments.length)
+//     for(let i =0; i < comments.length; i++){
+//         console.log(comments)
+//     }
+// }
