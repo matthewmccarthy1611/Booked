@@ -25,6 +25,6 @@ Bookshelf.create(name: "Have Read", book: Book.find_by(title: "KJV Bible"), user
 Bookshelf.create(name: "Have Read", book: Book.find_by(title: "KJV Bible"), user: User.find_by(name: "Linda"))
 Bookshelf.create(name: "Have Read", book: Book.find_by(title: "KJV Bible"), user: User.find_by(name: "Fred"))
 
-Comment.create(content: "Good read", book: Book.find_by(title: "KJV Bible"), user: User.find_by(name: "Fred"))
-Comment.create(content: "I prefer the ESV", book: Book.find_by(title: "KJV Bible"), user: User.find_by(name: "Bill"))
-Comment.create(content: "Not great", book: Book.find_by(title: "KJV Bible"), user: User.find_by(name: "Sally"))
+# Comment.create(content: "Good read", book: Book.find_by(title: "KJV Bible"), user: User.find_by(name: "Fred"))
+# Comment.create(content: "I prefer the ESV", book: Book.find_by(title: "KJV Bible"), user: User.find_by(name: "Bill"))
+# Comment.create(content: "Not great", book: Book.find_by(title: "KJV Bible"), user: User.find_by(name: "Sally"))
