@@ -31,8 +31,19 @@ async function postBook(new_book, image){
         })
     .then(res => res.json())
     .then((book) => {
-    renderBooks(book)
+        book = new Book(book.title, book.author, book.img, book.page_count)
+        // console.log(book)
+        renderBooks(book)
     })
+}
+
+class Book {
+    constructor(title, author, img, page_count){
+        this.title = title;
+        this.author = author;
+        this.img = img;
+        this.page_count = page_count;
+    }
 }
 
 function renderBooks(book) {
@@ -57,20 +68,20 @@ function renderBooks(book) {
         deleteBookFromBookshelf(book.id)
     })
 
-    let cbtn = document.createElement('button')
-    cbtn.innerText = "View Comments"
-    cbtn.addEventListener('click', (e) => {
-        e.preventDefault()
-        console.log(book)
-        fetchComments(book.id)
-        // console.log(comments)
-    })
+    // let cbtn = document.createElement('button')
+    // cbtn.innerText = "View Comments"
+    // cbtn.addEventListener('click', (e) => {
+    //     e.preventDefault()
+    //     console.log(book)
+    //     fetchComments(book.id)
+    //     // console.log(comments)
+    // })
 
     let divCard = document.createElement('div')
     divCard.setAttribute('class', 'card')
     divCard.setAttribute('id', book.id)
 
-    divCard.append(h2, p, img, btn, cbtn)
+    divCard.append(h2, p, img, btn)
     booksContainer.append(divCard)
 }
 
@@ -130,27 +141,27 @@ async function deleteBookFromBookshelf(id){
     })
 }
 
-function fetchComments(book) {
-    let comments
-    fetch(`http://localhost:3000/books/${book}/comments`)
-        .then(response => response.json())
-        .then(results => results.forEach(obj => {
-            if (obj.book_id === book){
-                // console.log(obj)
-                comments = new Comment(obj.content, obj.book_id, obj.user_id)
-            }
-        }))
-        console.log(comments)
-        renderComments(book, comments)
-}
+// function fetchComments(book) {
+//     let comments
+//     fetch(`http://localhost:3000/books/${book}/comments`)
+//         .then(response => response.json())
+//         .then(results => results.forEach(obj => {
+//             if (obj.book_id === book){
+//                 // console.log(obj)
+//                 comments = new Comment(obj.content, obj.book_id, obj.user_id)
+//             }
+//         }))
+//         console.log(comments)
+//         renderComments(book, comments)
+// }
 
-class Comment {
-    constructor(content, book_id, user_id){
-        this.content = content;
-        this.book = book_id
-        this.user = user_id
-    }
-}
+// class Comment {
+//     constructor(content, book_id, user_id){
+//         this.content = content;
+//         this.book = book_id
+//         this.user = user_id
+//     }
+// }
 
 // function renderComments(book, comments) {
 //     console.log(comments)
