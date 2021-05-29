@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function getBooks(){
     return fetch('http://localhost:3000/books')
         .then(resp => resp.json())
-        .then(books => books.slice(1).forEach(book => renderBooks(book)))
+        .then(books => books.forEach(book => renderBooks(book)))
 }
 
 // const newBook = document.getElementById('new-book-btn').addEventListener('click', postBook)
