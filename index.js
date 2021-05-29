@@ -63,9 +63,9 @@ function renderBooks(book) {
     commentbtn.addEventListener('click', () => {
         viewComments = !viewComments
         if (viewComments){
-            getComments(book, id)
+            getComments(book)
             commentbtn.innerText = 'Hide Comments'
-            commentArea.style.display = 'block'
+            commentArea.style.height = 'block'
         } else {
             commentbtn.innerText = "View Comments"
             commentArea.style.display ='none'
@@ -74,6 +74,7 @@ function renderBooks(book) {
 
     let commentArea = document.createElement('div')
     commentArea.style.display = 'none'
+    commentArea.setAttribute('id', 'comments-area')
     //addcomments function
 
     let divCard = document.createElement('div')
@@ -83,37 +84,59 @@ function renderBooks(book) {
     booksContainer.append(divCard)
 }
 
-class User {
+// class User {
+//     constructor(user_id){
+//         this.user_id = user_id;
+//     }
+// }
+
+function findUserName(user_id){
+    // console.log(user_id)
+    fetch(`http://localhost:3000/users/${user_id}`)
+    .then(res => res.json())
+    .then(json => {
+        preRender(json)
+    })
 
 }
 
-class Book {
-
-}
 
 class Comments {
-    constructor(content, ){
-
-    }
+    constructor(content){
+        this.content = content;
+    }  
 }
 
-async function getComments(book, id){
-    console.log(book, id)
-    return fetch(`http://localhost:3000/books/${id}/comments`, {
+// let preRender = function(username){
+//     return username
+// }
+
+let renderComments = function(comment){
+    // console.log(`${user} says: ${comment}`)
+    let commentsArea = document.getElementById('comments-area')
+    // let ul = document.createElement('ul')
+    let li = document.createElement('li')
+    li.textContent = `Anon says: ${comment}`
+    commentsArea.append(li)
+    // commentsArea.append(ul)
+    // li.textContent = `Anon says: ${comment}`
+}
+
+async function getComments(book){
+    return fetch(`http://localhost:3000/books/${book.id}/comments`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Accept': "application/json"
-        },
-        body: JSON.stringify({
-            content: content,
-
+        }
+    })
+    .then(res => res.json())
+    .then(json => { 
+        json.forEach(obj => {
+            let newComment = new Comments(obj.content)
+            renderComments(newComment.content)
         })
-        })
-    .then(res => console.log(res.json()))
-    // .then((json) => {
-    //     Comments.new(json)
-    // })
+    })
 }
 
 async function googleBooksSearch(search) {
