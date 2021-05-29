@@ -57,29 +57,20 @@ function renderBooks(book) {
         deleteBookFromBookshelf(book.id)
     })
 
+    let cbtn = document.createElement('button')
+    cbtn.innerText = "View Comments"
+    cbtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        console.log(book)
+        fetchComments(book)
+        // console.log(comments)
+    })
+
     let divCard = document.createElement('div')
     divCard.setAttribute('class', 'card')
 
-    divCard.append(h2, p, img, btn)
+    divCard.append(h2, p, img, btn, cbtn)
     booksContainer.append(divCard)
-}
-
-
-async function getComments(book){
-    return fetch(`http://localhost:3000/books/${book.id}/comments`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': "application/json"
-        }
-    })
-    .then(res => res.json())
-    .then(json => { 
-        json.forEach(obj => {
-            let newComment = new Comments(obj.content)
-            renderComments(newComment.content)
-        })
-    })
 }
 
 async function googleBooksSearch(search) {
@@ -136,4 +127,29 @@ async function deleteBookFromBookshelf(id){
         },
         body: null
     })
+}
+
+function fetchComments(book) {
+    let comments = []
+    fetch(`http://localhost:3000/books/${book.id}/comments`)
+        .then(response => response.json())
+        .then(results => results.forEach(obj => {
+            if (obj.book_id === book.id){
+                // console.log(obj)
+                comments.push(new Comment(obj.content, obj.book_id, obj.user_id))
+            }
+        }))
+        renderComments(comments)
+}
+
+class Comment {
+    constructor(content, book_id, user_id){
+        this.content = content;
+        this.book = book_id
+        this.user = user_id
+    }
+}
+
+function renderComments(comments) {
+    console.log(comments)
 }
