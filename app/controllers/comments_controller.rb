@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/1
   def show
-    comment = Comment.find_by(book_id: Book.find_by(:id)
+    comment = Comment.find_by(id: params[:id])
     render json: comment
   end
 

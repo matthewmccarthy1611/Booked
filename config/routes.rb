@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  # resources :comments
+  resources :comments
   # resources :bookshelves
-  resources :users do
-    resources :comments, only: [:new, :create, :index]
-  end
+  # resources :users do
+  #   resources :comments, only: [:new, :create, :index]
+  # end
   resources :books do
     resources :comments, only: [:new, :create, :index, :show]
   end

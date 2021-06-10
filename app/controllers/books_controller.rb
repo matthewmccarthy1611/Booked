@@ -10,7 +10,8 @@ class BooksController < ApplicationController
 
   # GET /books/1
   def show
-    render json: @book
+    book = Book.find_by(id: params[:id])
+    render json: book
   end
 
   # POST /books
